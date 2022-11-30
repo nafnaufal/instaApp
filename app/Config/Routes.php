@@ -38,8 +38,8 @@ $routes->set404Override();
 $routes->get('/', 'Pages::timeline');
 $routes->get('postingan', 'Pages::postingan');
 $routes->get('upload', 'Pages::upload');
-$routes->get('login', 'Login::login');
-$routes->get('register', 'Register::register');
+// $routes->get('login', 'Login::login');
+// $routes->get('register', 'Register::register');
 
 /*
  * --------------------------------------------------------------------

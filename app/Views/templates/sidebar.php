@@ -24,9 +24,21 @@
                 <a href="upload">
                     <i class="bi bi-plus-square text-dark fs-1"></i>
                 </a>
-                <a href="#">
-                    <i class="bi bi-power text-danger fs-3"></i>
-                </a>
+                <?php if (logged_in()) : ?>
+                    <div style='text-align: center;'>
+                        <p style='margin:auto'>
+                            <?= user()->username ?>
+                        </p>
+                        <a href="logout">
+                            <i class="bi bi-power text-danger fs-3"></i>
+                        </a>
+                    </div>
+                <?php else : ?>
+                    <a href="login">
+                        <i class="bi bi-box-arrow-in-right text-primary fs-3"></i>
+                    </a>
+                    <!-- show HTML login button -->
+                <?php endif; ?>
             </div>
         </nav>
     </div>

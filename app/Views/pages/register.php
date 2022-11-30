@@ -19,6 +19,10 @@
                 <div class="mb-3">
                     <input type="username" class="form-control" id="username" name="username" placeholder="Username" aria-label="Username" aria-describedby="username-addon" required autofocus>
                 </div>
+                <label>Full Name</label>
+                <div class="mb-3">
+                    <input type="name" class="form-control" id="name" name="name" placeholder="Full Name" aria-label="Full Name" aria-describedby="name-addon" required>
+                </div>
                 <label>Password</label>
                 <div class="mb-3">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" aria-label="Kata Sandi" aria-describedby="password-addon">
