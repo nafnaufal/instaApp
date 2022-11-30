@@ -123,13 +123,15 @@ class Pages extends BaseController
         ];
         // dd($data);
         $comment->insert($data);
-
+        $post = new Post();
+        $post->where('id',$this->request->getPost('id_post'))->decrement('comments', 1);
         return redirect()->back();
     }
     public function like($post_id)
     {
         // $query->num_rows() > 0
         $like = new Like();
+        $post = new Post();
         
         $getLike = $like->select()->where([
             'id_user' => user_id(),
@@ -153,11 +155,14 @@ class Pages extends BaseController
 
             if($getLike[0]['like'] == 1){
                 $like->update($getLike[0]['id'], $disliked);
+                $post->where('id', $post_id)->decrement('likes', 1);
             }else{
+                $post->where('id', $post_id)->increment('likes', 1);
                 $like->update($getLike[0]['id'], $liked);
             }
         }else{
             $like->insert($in);
+            $post->where('id', $post_id)->increment('likes', 1);
         }
         // dd($getLike);
         return redirect('/');
