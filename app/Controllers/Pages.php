@@ -8,4 +8,14 @@ class Pages extends BaseController
     {
         return view('pages/timeline.php');
     }
+    
+    public function postingan()
+    {
+        return view('pages/postingan.php');
+    }
+    
+    public function upload()
+    {
+        return view('pages/upload.php');
+    }
 }

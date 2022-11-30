@@ -7,20 +7,20 @@
             Nama
         </div>
 
-        <img src="https://img.okezone.com/content/2022/09/30/33/2678269/iu-jalani-isolasi-mandiri-setelah-kontak-erat-dengan-pasien-covid-19-di-italia-xNpKnKQvLj.jpeg" alt="IU">
+        <img class="img-fluid" src="https://img.okezone.com/content/2022/09/30/33/2678269/iu-jalani-isolasi-mandiri-setelah-kontak-erat-dengan-pasien-covid-19-di-italia-xNpKnKQvLj.jpeg" alt="IU">
 
         <div class="card-body">
             <div class="row mb-2">
                 <a class="col col-1" href="#">
                     <i class="bi bi-heart text-dark fs-5"></i>
                 </a>
-                <a class="col col-auto" href="#">
+                <a class="col col-auto" href="postingan">
                     <i class="bi bi-chat text-dark fs-5"></i>
                 </a>
             </div>
             <p class="card-text">100 Like</p>
             <p class="card-text fw-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a class="col col-auto" href="#">
+            <a class="col col-auto" href="postingan">
                 <p class="text-muted fw-light">Lihat komentar</p>
             </a>
         </div>
