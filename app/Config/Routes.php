@@ -40,6 +40,8 @@ $routes->get('postingan/(:any)', 'Pages::postingan/$1');
 $routes->get('upload', 'Pages::upload');
 $routes->post('upload/proccess', 'Pages::uploadProccess');
 $routes->post('comment', 'Pages::comment');
+$routes->get('comment', 'Pages::timeline');
+$routes->get('like/(:any)', 'Pages::like/$1');
 // $routes->get('login', 'Login::login');
 // $routes->get('register', 'Register::register');
 

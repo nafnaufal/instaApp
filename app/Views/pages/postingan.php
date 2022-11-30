@@ -14,9 +14,22 @@
     <div class="container mx-auto p-4 mb-2 bg-white mt-4 rounded">
 
         <h5><?= $post['username'] ?></h5>
-        <a href="#">
-            <i class="bi bi-heart text-dark fs-5"></i>
-        </a>
+        <?php if (array_key_exists("like", $like)) {
+            if ($like['like'] == 1) {
+        ?>
+                <a class="col col-1" href="/like/<?= $post['id'] ?>">
+                    <i class="bi bi-heart-fill text-danger fs-5"></i>
+                </a>
+            <?php } else { ?>
+                <a class="col col-1" href="/like/<?= $post['id'] ?>">
+                    <i class="bi bi-heart text-dark fs-5"></i>
+                </a>
+            <?php }
+        } else { ?>
+            <a class="col col-1" href="/like/<?= $post['id'] ?>">
+                <i class="bi bi-heart text-dark fs-5"></i>
+            </a>
+        <?php } ?>
         <p><?= $post['likes'] ?> Like</p>
 
         <p class="fw-light"><?= $post['caption'] ?></p>
