@@ -8,14 +8,20 @@
         </div>
 
         <img class="preview" id="file-ip-1-preview">
-        <form action="">
+
+        <form action="upload/proccess" method="post" enctype="multipart/form-data">
 
             <div class="card-body">
+                <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <?php echo session()->getFlashdata('error'); ?>
+                    </div>
+                <?php endif; ?>
                 <label class="btn btn-sm bg-dark text-white" for="file-ip-1">Choose Image</label>
-                <input style="display:none;" class="form-control-file" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
+                <input name="image" style="display:none;" class="form-control-file" type="file" id="file-ip-1" accept="image/*" onchange="showPreview(event);">
 
                 <div class="form-floating mt-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                    <textarea name="caption" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
                     <label for="floatingTextarea">Caption</label>
                 </div>
 

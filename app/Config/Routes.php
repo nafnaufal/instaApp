@@ -36,8 +36,10 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Pages::timeline');
-$routes->get('postingan', 'Pages::postingan');
+$routes->get('postingan/(:any)', 'Pages::postingan/$1');
 $routes->get('upload', 'Pages::upload');
+$routes->post('upload/proccess', 'Pages::uploadProccess');
+$routes->post('comment', 'Pages::comment');
 // $routes->get('login', 'Login::login');
 // $routes->get('register', 'Register::register');
 
