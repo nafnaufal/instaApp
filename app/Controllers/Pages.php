@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Like;
@@ -10,36 +11,36 @@ class Pages extends BaseController
     public function timeline()
     {
         $post = new Post();
-        $liked = $post->select('post.id, path, username, caption, likes, post.created_at, post.id_user, like.like')->join('users', 'users.id = post.id_user')->join('like', 'users.id = like.id_user AND post.id = like.id_post')->orderBy('post.created_at', 'DESC')->where([
-            'like.like' => 1,
-        ])->findAll();
+        // $liked = $post->select('post.id, path, username, caption, likes, post.created_at, post.id_user, like.like')->join('users', 'users.id = post.id_user')->join('like', 'users.id = like.id_user AND post.id = like.id_post')->orderBy('post.created_at', 'DESC')->where([
+        //     'like.like' => 1,
+        // ])->findAll();
 
-        $disliked = $post->select('post.id, path, username, caption, likes, post.created_at, post.id_user, like.like')->join('users', 'users.id = post.id_user')->join('like', 'users.id = like.id_user AND post.id = like.id_post')->orderBy('post.created_at', 'DESC')->where([
-            'like.like' => 0,
-        ])->findAll();
-        
+        // $disliked = $post->select('post.id, path, username, caption, likes, post.created_at, post.id_user, like.like')->join('users', 'users.id = post.id_user')->join('like', 'users.id = like.id_user AND post.id = like.id_post')->orderBy('post.created_at', 'DESC')->where([
+        //     'like.like' => 0
+        // ])->findAll();
+
         $nodata = $post->select('post.id, path, username, caption, likes, post.created_at, post.id_user')->join('users', 'users.id = post.id_user')->orderBy('post.created_at', 'DESC')->findAll();
 
-        $id = array();
-        $timeline = array();
-        foreach ($liked as $d) {
-            array_push($id, $d['id']);
-            array_push($timeline, $d);
-        }
-        foreach ($disliked as $d) {
-            array_push($id, $d['id']);
-            array_push($timeline, $d);
-        }
-        
-        
-        foreach($nodata as $d){
-            
-            if(!in_array($d['id'], $id)){
-                array_push($timeline, $d);
-            }
+        // $id = array();
+        // $timeline = array();
+        // foreach ($liked as $d) {
+        //     array_push($id, $d['id']);
+        //     array_push($timeline, $d);
+        // }
+        // foreach ($disliked as $d) {
+        //     array_push($id, $d['id']);
+        //     array_push($timeline, $d);
+        // }
 
-        }
-        $data['post'] = $timeline;
+
+        // foreach ($nodata as $d) {
+
+        //     if (!in_array($d['id'], $id)) {
+        //         array_push($timeline, $d);
+        //     }
+        // }
+        $data['post'] = $nodata;
+        // dd($data['post']);
         return view('pages/timeline.php', $data);
     }
 
@@ -57,14 +58,14 @@ class Pages extends BaseController
         ])->find();
         $data['like'] = array();
         $data['post'] = array();
-        if (array_key_exists(0, $getLike)){
+        if (array_key_exists(0, $getLike)) {
             $data['like'] = $getLike[0];
         }
-        
-        if (array_key_exists(0, $getPost)){
+
+        if (array_key_exists(0, $getPost)) {
             $data['post'] = $getPost[0];
         }
-        
+
         $comment = new Comment();
         $data['comment'] = $comment->select('comment.id, username, comment, comment.created_at, comment.id_user')->join('post', 'post.id = comment.id_post')->where([
             'post.id' => $id,
@@ -77,7 +78,7 @@ class Pages extends BaseController
     {
         return view('pages/upload.php');
     }
-    
+
     public function uploadProccess()
     {
         helper(['form', 'url']);
@@ -98,10 +99,10 @@ class Pages extends BaseController
         } else {
             $img = $this->request->getFile('image');
             $newName = $img->getRandomName();
-            $img->move('public/post/'.user_id(), $newName);
+            $img->move('public/post/' . user_id(), $newName);
 
             $data = [
-                'path' =>  'public/post/'.user_id().'/'.$img->getName(),
+                'path' =>  'public/post/' . user_id() . '/' . $img->getName(),
                 'id_user' => user_id(),
                 'caption' => $this->request->getPost('caption'),
                 'likes' => 0,
@@ -118,13 +119,13 @@ class Pages extends BaseController
 
         $data = [
             'comment' => $this->request->getPost('comment'),
-            'id_user' => $this->request->getPost('id_user'),
+            'id_user' => user_id(),
             'id_post' => $this->request->getPost('id_post'),
         ];
         // dd($data);
         $comment->insert($data);
         $post = new Post();
-        $post->where('id',$this->request->getPost('id_post'))->decrement('comments', 1);
+        $post->where('id', $this->request->getPost('id_post'))->increment('comments', 1);
         return redirect()->back();
     }
     public function like($post_id)
@@ -132,7 +133,7 @@ class Pages extends BaseController
         // $query->num_rows() > 0
         $like = new Like();
         $post = new Post();
-        
+
         $getLike = $like->select()->where([
             'id_user' => user_id(),
             'id_post' => $post_id,
@@ -151,16 +152,16 @@ class Pages extends BaseController
             'like' => 0,
         ];
 
-        if(count($getLike) > 0){
+        if (count($getLike) > 0) {
 
-            if($getLike[0]['like'] == 1){
+            if ($getLike[0]['like'] == 1) {
                 $like->update($getLike[0]['id'], $disliked);
                 $post->where('id', $post_id)->decrement('likes', 1);
-            }else{
+            } else {
                 $post->where('id', $post_id)->increment('likes', 1);
                 $like->update($getLike[0]['id'], $liked);
             }
-        }else{
+        } else {
             $like->insert($in);
             $post->where('id', $post_id)->increment('likes', 1);
         }

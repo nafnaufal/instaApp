@@ -20,22 +20,9 @@
 
             <div class="card-body">
                 <div class="row mb-2">
-                    <?php if (array_key_exists("like", $p)) {
-                        if ($p['like'] == 1) {
-                    ?>
-                            <a class="col col-1" href="like/<?= $p['id'] ?>">
-                                <i class="bi bi-heart-fill text-danger fs-5"></i>
-                            </a>
-                        <?php } else { ?>
-                            <a class="col col-1" href="like/<?= $p['id'] ?>">
-                                <i class="bi bi-heart text-dark fs-5"></i>
-                            </a>
-                        <?php }
-                    } else { ?>
-                        <a class="col col-1" href="like/<?= $p['id'] ?>">
-                            <i class="bi bi-heart text-dark fs-5"></i>
-                        </a>
-                    <?php } ?>
+                    <a class="col col-1" href="like/<?= $p['id'] ?>">
+                        <i class="bi bi-heart text-dark fs-5"></i>
+                    </a>
                     <a class="col col-auto" href="postingan/<?= $p['id'] ?>">
                         <i class="bi bi-chat text-dark fs-5"></i>
                     </a>
